@@ -1,0 +1,201 @@
+.block{
+	height: 450px;
+	width: 300px;
+	margin-left: 37%;
+	margin-top: 5%;
+	background: rgba(122, 119, 119, 1);
+	border: 1px solid black;
+	font-family: Georgia, serif;
+}
+.button{
+	width: 80%;
+	height: 15%;
+	margin-left: 10%;
+	
+}
+#buttonTime{
+	margin-top: 10%;
+}
+#buttonSchedule{
+	margin-top: 30%;
+}
+
+#buttonAdditionally{
+	width: 60%;
+	height: 10%;
+	margin-left: 20%;
+	margin-top: 10%;
+}
+#block-1{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	
+}
+#block-2{
+	display: none;
+	position: absolute;
+	z-index: 1;
+}
+#block-3{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	
+}
+#block-4{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	
+}
+#block-5{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	
+}
+.buttonDays{
+	width: 80%;
+	height: 8%;
+	margin-left: 10%;
+	margin-top: 5%;
+}
+
+#AddDaysofWeek{
+	height: 9%;
+	width: 40%;
+}
+#buttonDayAddSunday{
+	height: 5%;
+	width: 40%;
+	display: none;
+}
+#buttonBack{
+	width: 60%;
+	height: 6%;
+	margin-left: 20%;
+	margin-top: 2%;
+}
+.buttonConfirm{
+	width: 70%;
+	height: 8%;
+	margin-left: 15%;
+	margin-top: 2%;
+}
+#buttonDay-6{
+	display: none;
+}
+#buttonDay-7{
+	display: none;
+}
+.buttonDays.sixDays{
+	height: 7%;
+} 
+.buttonDays.lessThenSixDays{
+	height: 8%;
+}
+.dayVisible{
+	display: block;
+}
+.dayInvisible{
+	display: none;
+}
+.buttonEveryDay{
+	width: 80%;
+	height: 10%;
+	margin-left: 10%;
+	margin-top: 5%;
+}
+#showDayOfWeek{
+	height:50px;
+	width: 100%;
+
+	text-align: center;
+}
+#showEveryDay{
+	margin-top:5%;
+	font-size: 35px;
+}
+
+.startClass{
+	display: inline-block;
+	width:30%;
+	height: 3%;
+	border: 1px solid black;
+}
+.endClass{
+	display: inline-block;
+	width:30%;
+	height: 3%;
+	border: 1px solid black;
+}
+td{
+	width: 330px;
+	border: 1px solid black;
+}
+tr{
+	width: 100%;
+	height: 25px;
+}
+.mainParametres{
+	width:15%;;
+}
+h2{
+	text-align: center;
+}
+#tabletOfTimer{
+	width: 80%;
+	height: 60%;
+	border: 1px solid black;
+	margin-top: 10%;
+	margin-left: 10%;
+}
+.TimeOfTimer{
+	font-size:100px;
+	display: inline-block;
+	margin-left: 10%;
+}
+.TextOfTimer{
+	
+	display: inline-block;
+
+	margin-top: 10%;
+}
+#informationOfTime{
+	font-size:60px;
+	margin-top: 4%;
+	text-align: center;
+
+}
+.tableButtons{
+	display: inline-block;
+	margin-top:5%;
+
+	width: 30%;
+	height: 15%;
+}
+#buttonTimetable{
+	margin-left: 10%;
+
+
+}
+#buttonSettings{
+	
+	margin-left: 30%;
+}
+.activeButtons{
+
+	z-index: 1;
+}
+#tabletOfTimer{
+	position: absolute;
+	z-index: 0;
+}
+#exit{
+	text-align: center;
+	width: 6%;
+	height: 4%;
+	margin-left: 90%;
+	margin-top: 5%;
+}
