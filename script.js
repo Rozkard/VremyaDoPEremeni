@@ -383,11 +383,14 @@ function getStartParametrs(){
 	}
 
 	var t=new Date(); 
-	var days=3; 
-	var hours=10; 
-	var minutes=25;
+	var days=t.getDay(); 
+	var hours=t.getHours(); 
+	var minutes=t.getMinutes();
 	var founded = false;
-	
+	days--;
+	if(days==-1){
+		days=6;
+	}
 	if((document.getElementById("TimeOFTimerD").innerHTML=="00")&&(document.getElementById("TimeOFTimerH").innerHTML=="00")&&(document.getElementById("TimeOFTimerM").innerHTML=="00")){
 	
 	for(var k= 0;k<6;k++){
@@ -397,13 +400,42 @@ function getStartParametrs(){
 				dayOfWeek-=7;
 			}
 		for(var i=0;i<5;i++){
-
-			if(classOfEachDay[dayOfWeek][i]==0){
 		
+			if(classOfEachDay[dayOfWeek][i]==0){
+
 				continue;
 			}
 			else{
+			
 			if(tempDay==0){
+			if(hours<=classLenghtH[i][0]){
+				if(((hours==classLenghtH[i][0])&&(minutes<classLenghtM[i][0]))||(hours<classLenghtH[i][0])){
+					
+						tempHours=  classLenghtH[i][0]-hours;
+						tempMinutes = 0;
+						
+						if(minutes>classLenghtM[i][0]){
+							tempMinutes =  classLenghtM[i][0]+60 - minutes ;
+							tempHours--;
+						}
+						else{
+							tempMinutes = classLenghtM[i][0] - minutes ;
+						}
+						alert(i+ "" +classLenghtH[0][0] + "  " + classLenghtM[0][0] );
+						document.getElementById("TimeOFTimerD").innerHTML = "0" + tempDay;
+						document.getElementById("TimeOFTimerH").innerHTML = "0"+ tempHours;
+						if(tempMinutes>=10){
+							document.getElementById("TimeOFTimerM").innerHTML = tempMinutes;
+						}
+						
+						else {
+						document.getElementById("TimeOFTimerM").innerHTML =  "0"+ tempMinutes;
+						}
+						document.getElementById("informationOfTime").innerHTML = "До початку " + (i+1) + " пари залишилось";
+						founded = true;
+						break;
+				}
+			}
 			if((hours>=classLenghtH[i][0])&&(hours<=classLenghtH[i][1])){
 					if(((hours==classLenghtH[i][0])&&(minutes>=classLenghtM[i][0]))||((hours==classLenghtH[i][1])&&(minutes<=classLenghtM[i][1]))||((hours>classLenghtH[i][0])&&(hours<classLenghtH[i][1]))){
 						tempHours=  classLenghtH[i][1]-hours;
@@ -430,14 +462,15 @@ function getStartParametrs(){
 						break;
 					}
 				}
+			var nextClas = 0;
 			if(i==4){
-				var nextClas=0;
+				nextClas=0;
 			}
 			else{
-				var nextClas=i+1;
+				nextClas=i+1;
 			}
 			if(((hours==classLenghtH[i][1])&&(minutes>=classLenghtM[i][1]))||((hours==classLenghtH[nextClas][0])&&(minutes<=classLenghtM[nextClas][0]))||((hours>classLenghtH[i][1])&&(hours<classLenghtH[nextClas][0]))){
-						document.getElementById("informationOfTime").innerHTML = "До початку " + (nextClas++) + " пари залишилось";
+						document.getElementById("informationOfTime").innerHTML = "До початку " + (nextClas+1) + " пари залишилось";
 						tempHours=  classLenghtH[nextClas][0]-hours;
 						tempMinutes = 0;
 				
@@ -565,6 +598,9 @@ function showDistribution(){
 }
 function exit(n){
 	document.getElementById("block-"+n).style.display = "none";
+}
+function showSettings(){
+	document.getElementById("block-1").style.display = "block";
 }
 /*var t=new Date(); 
 var hours=t.getHours(); 
