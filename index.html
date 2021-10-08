@@ -6,8 +6,13 @@
 		<link rel ="stylesheet" href = "style.css">
 	</head> 
 	<body  onload="getStartParametrs()" onload="getStartParametr()" onload="showTime()" > 
-	<div class="block" id="block-1">
-			<button  id="exit"  onclick="exit(1)">X</button>
+	
+	
+	<div id = "tabletOfTimer">
+			<div class="block" id="block-1">
+			
+			<button  class="close"  onclick="exit(1)">X</button>
+			<p>Налаштування</p>
 			<button class="button" id="buttonSchedule" onclick="schedule()">Налаштування пар</button>
 			<button class="button" id="buttonTime" onclick="distribution()">Налаштування часу</button>
 			<button id="buttonAdditionally" onclick="distribution()">Додатково</button>
@@ -87,7 +92,6 @@
 		</div>
 		
 	
-	<div id = "tabletOfTimer">
 		<div id = "informationOfTime"></div>
 		<div id = "TimeOF">
 			<div class = "TimeOFTimer" id = "TimeOFTimerD">00</div>
