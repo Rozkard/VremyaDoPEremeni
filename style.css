@@ -42,7 +42,7 @@ body{
 	border: 0px;
 }
 #block-1{
-	display: block;
+	display: none;
 	position: absolute;
 	z-index: 1;
 	font-size: 35px;
@@ -61,7 +61,7 @@ body{
 	
 }
 #block-4{
-	display: none;
+	display: block;
 	position: absolute;
 	z-index: 1;
 	
@@ -77,13 +77,23 @@ body{
 	border: 0px;
 	border-radius: 15px;
 	width: 80%;
+	height: 7%;
+	margin-left: 10%;
+	margin-top: 3%;
+	border: 0px;
+	display: block;
+}
+#buttonTypeOfWeek{
+	font-size: 110%;
+	border: 1px solid black;
+	border-radius: 0px;
+	width: 80%;
 	height: 8%;
 	margin-left: 10%;
-	margin-top: 5%;
+	
 }
-
 #AddDaysofWeek{
-	height: 9%;
+	height: 10%;
 	width: 40%;
 	border-radius: 5px;
 }
@@ -103,9 +113,9 @@ body{
 }
 .buttonConfirm{
 
-	width: 70%;
+	width: 80%;
 	height: 8%;
-	margin-left: 15%;
+	margin-left: 10%;
 	margin-top: 3%;
 	font-size: 110%;
 	border: 1px solid black;
@@ -117,12 +127,7 @@ body{
 #buttonDay-7{
 	display: none;
 }
-.buttonDays.sixDays{
-	height: 7%;
-} 
-.buttonDays.lessThenSixDays{
-	height: 8%;
-}
+
 .dayVisible{
 	display: block;
 }

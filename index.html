@@ -5,8 +5,7 @@
 		<script src="script.js"></script> 
 		<link rel ="stylesheet" href = "style.css">
 	</head> 
-</HEAD>
-	<body  onload="getStartParametrs()" onload="getStartParametr()" onload="showTime()" > 
+	<body  onload="getStartParametrs()"  onload="showTime()" > 
 	
 	
 	<div id = "tabletOfTimer">
@@ -14,16 +13,13 @@
 			
 			<button  class="close"  onclick="exit(1)">X</button>
 			<p>Налаштування</p>
-	<body  onload="getStartParametrs()" onload="showTime()" > 
-	<div class="block" id="block-1">
-			<button  id="exit"  onclick="exit(1)">X</button>
-
 			<button class="button" id="buttonSchedule" onclick="schedule()">Налаштування пар</button>
 			<button class="button" id="buttonTime" onclick="distribution()">Налаштування часу</button>
 			<button id="buttonAdditionally" onclick="distribution()">Додатково</button>
 	</div>
 	<div class="block" id="block-2">
 		<button  id="exit"  onclick="exit(2)">X</button>
+		<button  id="buttonTypeOfWeek" onclick="changeWeek()">Неділя над рискою</button>
 		<button class="buttonDays" id="buttonDay-1" onclick="dayShedule(0)">Понеділок</button>
 		<input type="checkbox" id="check-1" checked="checked" onclick="checkDay()">
 		<button class="buttonDays" id="buttonDay-2" onclick="dayShedule(1)">Вівторок</button>
@@ -65,7 +61,7 @@
 			<table>
 			<tr>
 			<td class = "numberOfClassInTable">1 пара</td>
-			<td><input type="time" id="startOfClass-1" readonly></td>
+			<td><input type="time" id="startOfClass-1" value="09:00" ></td>
 			<td><input type="time" id="endOfClass-1" readonly></td>
 			</tr>
 			<tr>
@@ -89,9 +85,9 @@
 			<td><input type="time" id="endOfClass-5" readonly></td>
 			</tr>
 			</table>
-			<p>Тривалість пари:  <input type="number" class= "mainParametres" id="classTimeH"  min="0" max="2" step="1"> год.  <input type="number" class= "mainParametres" id="classTimeM" min="0" max="60" step="1"> хв.</p>
-			<p>Тривалість перерви: <input type="number" class= "mainParametres"id="breakTime"  min="0" max="60" step="1"> хв.</p>
-			<p>Тривалість великої перерви: <input type="number" class= "mainParametres" id="longBreakTime"  min="0" max="60" step="1"> хв.</p>
+			<p>Тривалість пари:  <input type="number" class= "mainParametres" id="classTimeH"  min="0" max="2" step="1" value="1"> год.  <input type="number" class= "mainParametres" id="classTimeM" min="0" max="60" step="1" value="20"> хв.</p>
+			<p>Тривалість перерви: <input type="number" class= "mainParametres"id="breakTime"  min="0" max="60" step="1" value="10"> хв.</p>
+			<p>Тривалість великої перерви: <input type="number" class= "mainParametres" id="longBreakTime"  min="0" max="60" step="1" value="40"> хв.</p>
 			<button class="buttonConfirm" id="buttonConfirmTime" onclick="confirmChangesInScheduleTime()">Підтвердити</button>
 			<button class="buttonBack" id="buttonBack" onclick="back(4)">Назад</button>
 		</div>

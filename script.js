@@ -1,15 +1,36 @@
-var addDays = ["0","0","0","0","0","суботу","неділю"];
+var addDays = [
+["0","0","0","0","0","суботу","неділю"],
+["0","0","0","0","0","суботу","неділю"]];
 var daysOfWeek = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"];
-var classOfEachDay = [
-[1,1,1,1,1],
-[1,1,1,1,1],
-[1,1,1,1,1],
-[1,1,1,1,1],
-[1,1,1,1,1],
-[0,0,0,0,0],
-[0,0,0,0,0],
-
+var addToButtonDaysOfWeek = ["понеділок", "вівторок", "середу", "четвер", "п'ятницю", "суботу", "неділю"];
+var checkDisplayBlock =[
+[1,1,1,1,1,0,0],
+[1,1,1,1,1,0,0],
 ];
+var classOfEachDay	 = [
+[[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[0,0,0,0,0],
+[0,0,0,0,0],
+],
+[
+[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[1,1,1,1,1],
+[0,0,0,0,0],
+[0,0,0,0,0],
+],
+];
+var firstMounth = 8;
+var firstDay = 30;
+
+var typeOfWeek = 1;
+var tempTypeOfWeek = 0;
 var day = 0;
 var timeOfStartFirstClassH =  9;
 var timeOfStartFirstClassM =  0;
@@ -34,19 +55,20 @@ var classLenghtM = [
 var tempHours=  0;
 var tempMinutes = 0;
 var tempDay = 0;
+var secondsOfOneMinute= 0;
 function schedule(){
 	document.getElementById("block-2").style.display = "block";
 	document.getElementById("block-1").style.display = "none";
 
 	for(i=0;i<7;i++){
-		if(addDays[i]!=0){
+		if(addDays[typeOfWeek][i]!=0){
 			document.getElementById("check-"+(i+1)).style.display = "none";
-			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[i] +"+";
+			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[typeOfWeek][i] +"+";
 			break;
 		}
 	}
 	for(i=0;i<7;i++){
-		if(addDays[i]!=0){
+		if(addDays[typeOfWeek][i]!=0){
 			document.getElementById("buttonDay-"+(i+1)).style.display = "none";
 			document.getElementById("check-"+(i+1)).style.display = "none";
 			document.getElementById('check-'+(i+1)).checked = false;
@@ -74,30 +96,25 @@ function AddDaysofWeek(){
 	var amountOfDays = 0;
 	
 	for(i=0;i<7;i++){
-		if(addDays[i]!=0){
+		if(addDays[tempTypeOfWeek][i]!=0){
 			document.getElementById('buttonDay-'+(i+1)).style.display = "inline-block";
 			document.getElementById('check-'+(i+1)).style.display = "inline-block";
 			document.getElementById("buttonDay-"+(i+1)).disabled = false;
 			document.getElementById("buttonDay-"+(i+1)).style.opacity=1;
 			document.getElementById('check-'+(i+1)).checked = true;
-			addDays[i] = 0;
+			addDays[tempTypeOfWeek][i] = 0;
 			amountOfDays++;	
 			for(var k=0;k<5;k++){
-				classOfEachDay[i][k]= 1;
+				classOfEachDay[tempTypeOfWeek][i][k]= 1;
 			}
 			break;
 		}
-		amountOfDays++;
+		
 	}
-	if(amountOfDays>=3){
-		for(var i=0;i<7;i++){
-		document.getElementsByClassName('buttonDays')[i].classList.add('sixDays');
-		document.getElementsByClassName('buttonDays')[i].classList.remove('lessThenSixDay');
-	}
-	}
+	
 	for(i=0;i<7;i++){
-		if(addDays[i]!=0){
-			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[i] +"+";
+		if(addDays[tempTypeOfWeek][i]!=0){
+			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[tempTypeOfWeek][i] +"+";
 			break;
 		}
 		if(i==6){
@@ -106,14 +123,17 @@ function AddDaysofWeek(){
 	}
 }
 function checkDay(){
-	for(var i=1;i<=7;i++){
-		if(document.getElementById("check-"+i).checked){
-			document.getElementById("buttonDay-"+i).style.opacity=1;
-			document.getElementById("buttonDay-"+i).disabled = false;
+	for(var i=0;i<7;i++){
+		if(document.getElementById("check-"+(i+1)).checked){
+			document.getElementById("buttonDay-"+(i+1)).style.opacity=1;
+			document.getElementById("buttonDay-"+(i+1)).disabled = false;
 		}
 		else{
-			document.getElementById("buttonDay-"+i).style.opacity=0.3;
-			document.getElementById("buttonDay-"+i).disabled = true;
+			document.getElementById("buttonDay-"+(i+1)).style.opacity=0.3;
+			document.getElementById("buttonDay-"+(i+1)).disabled = true;
+			for(var k=0;k<5;k++){
+				classOfEachDay[tempTypeOfWeek][i][k]= 0;
+			}
 		}
 	}
 }
@@ -130,52 +150,21 @@ function confirmChangesInSchedule(){
 		else{
 			
 			document.getElementById("AddDaysofWeek").style.display = "block";
-			switch(i){
-				case 0:{ 
-					addDays[i] = "понеділок";		
-				}
-				break;
-				case 1:{ 
-					addDays[i] = "вівторок";		
-				}
-				break;
-				case 2:{ 
-					addDays[i] = "середу";		
-				}
-				break;
-				case 3:{ 
-					addDays[i] = "четвер";		
-				}
-				break;
-				case 4:{ 
-					addDays[i] = "п'ятницю";		
-				}
-				break;
-				case 5:{ 
-					addDays[i] = "суботу";		
-				}
-				break;
-				case 6:{ 
-					addDays[i] = "неділю";		
-				}
-				break;
-				
-			}
-			
+			addDays[tempTypeOfWeek][i] = addToButtonDaysOfWeek[i];
 			document.getElementById("buttonDay-"+(i+1)).style.display = "none";
 			document.getElementById("check-"+(i+1)).style.display = "none";
 			document.getElementById('check-'+(i+1)).checked = false;
 			for(var k=0;k<5;k++){
-				classOfEachDay[i][k]= 0;
+				classOfEachDay[tempTypeOfWeek][i][k]= 0;
 			}
 		}
 	
 	}
 
 	for(i=0;i<7;i++){
-		if(addDays[i]!=0){
+		if(addDays[tempTypeOfWeek][i]!=0){
 			document.getElementById("check-"+(i+1)).style.display = "none";
-			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[i] +"+";
+			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addDays[tempTypeOfWeek][i] +"+";
 			break;
 		}
 	}
@@ -199,7 +188,7 @@ function dayShedule(n){
 	document.getElementById("block-3").style.display = "block";
 	document.getElementById("block-2").style.display = "none";
 	for(var i=0;i<5;i++){
-		if(classOfEachDay[day][i] == 0){
+		if(classOfEachDay[typeOfWeek][day][i] == 0){
 		
 		document.getElementById("everyDay-"+(i+1)).style.opacity=0.6;
 		document.getElementById("everyDay-"+(i+1)).innerHTML = "+";
@@ -213,20 +202,20 @@ function dayShedule(n){
 	}
 }
 function checkClass(clas){
-	if(classOfEachDay[day][clas] == 1){
+	if(classOfEachDay[typeOfWeek][day][clas] == 1){
 		
 		document.getElementById("everyDay-"+(clas+1)).style.opacity=0.6;
 		document.getElementById("everyDay-"+(clas+1)).innerHTML = "+";
-		classOfEachDay[day][clas] = 0;
+		classOfEachDay[typeOfWeek][day][clas] = 0;
 	}
 	else {
-		classOfEachDay[day][clas] = 1;
+		classOfEachDay[typeOfWeek][day][clas] = 1;
 		document.getElementById("everyDay-"+(clas+1)).style.opacity=1;
 		document.getElementById("everyDay-"+(clas+1)).innerHTML = clas+1 + " пара";
 	}
 }
 function distribution(){
-
+	
 	document.getElementById("block-4").style.display = "block";
 	document.getElementById("block-1").style.display = "none";
 	document.getElementById("breakTime").value = lengthOfBreak;
@@ -236,8 +225,22 @@ function distribution(){
 	
 }
 function confirmChangesInScheduleTime(){
+	if(document.getElementById("classTimeH").value*1>2){document.getElementById("classTimeH").value=2}
+	else if(document.getElementById("classTimeH").value*1<0){document.getElementById("classTimeH").value=0}
+	
+	if(document.getElementById("classTimeM").value*1>60){document.getElementById("classTimeM").value=60}
+	else if((document.getElementById("classTimeM").value*1<10)&&(document.getElementById("classTimeH").value*1==0)){document.getElementById("classTimeM").value=10}
+	else if(document.getElementById("classTimeM").value*1<0){document.getElementById("classTimeM").value=0}
+	
+	if(document.getElementById("breakTime").value*1>60){ document.getElementById("breakTime").value=60;}
+	else if(document.getElementById("breakTime").value*1<5){ document.getElementById("breakTime").value=5;}
+	
+	if(document.getElementById("longBreakTime").value*1>60){ document.getElementById("longBreakTime").value=60;}
+	else if(document.getElementById("longBreakTime").value*1<5){ document.getElementById("longBreakTime").value=5;}
 	
 	lengthOfBreak = document.getElementById("breakTime").value*1;
+	timeOfStartFirstClassH = document.getElementById("startOfClass-1").value[0]*10+ document.getElementById("startOfClass-1").value[1]*1;
+	timeOfStartFirstClassM = document.getElementById("startOfClass-1").value[3]*10+ document.getElementById("startOfClass-1").value[4]*1;
 	lengthOfLongBreak = document.getElementById("longBreakTime").value*1;
 	lengthOfClassH = document.getElementById("classTimeH").value*1;
 	lengthOfClassM = document.getElementById("classTimeM").value*1;
@@ -245,13 +248,15 @@ function confirmChangesInScheduleTime(){
 	document.getElementById("longBreakTime").value = lengthOfLongBreak;
 	document.getElementById("classTimeH").value = lengthOfClassH;
 	document.getElementById("classTimeM").value = lengthOfClassM;
+	classLenghtH[0][0] = timeOfStartFirstClassH;
+	classLenghtM[0][0] = timeOfStartFirstClassM;
 	classLenghtH[0][1]= classLenghtH[0][0] + lengthOfClassH;
 	classLenghtM[0][1] = classLenghtM[0][0] + lengthOfClassM;
 	if(classLenghtM[0][1]>59){
 		classLenghtM[0][1] -=60;
 		classLenghtH[0][1]++;		
 	}
-	for(var i=1;i<5;i++){
+	for(var i=0;i<5;i++){
 	if(i!=2){
 	classLenghtH[i][0]= classLenghtH[i-1][1];	
 	classLenghtM[i][0] = classLenghtM[i-1][1] + lengthOfBreak;
@@ -277,6 +282,7 @@ function confirmChangesInScheduleTime(){
 		classLenghtH[i][1]++;		
 	}
 	}
+	
 	for(var i=0;i<5;i++){
 	if((classLenghtH[i][0]<10)&&(classLenghtM[i][0]<10)){
 		document.getElementById("startOfClass-"+(i+1)).value= "0"+classLenghtH[i][0]+":0"+classLenghtM[i][0];
@@ -312,7 +318,7 @@ function confirmChangesInScheduleTime(){
 	
 }
 function getStartParametrs(){
-
+	
 	classLenghtH[0][1]= classLenghtH[0][0] + lengthOfClassH;
 	classLenghtM[0][1] = classLenghtM[0][0] + lengthOfClassM;
 	if(classLenghtM[0][1]>59){
@@ -345,8 +351,20 @@ function getStartParametrs(){
 		classLenghtH[i][1]++;		
 	}
 	}
+	if((classLenghtH[0][1]<10)&&(classLenghtM[0][1]<10)){
+		document.getElementById("endOfClass-1").value= "0"+classLenghtH[0][1]+":0"+classLenghtM[0][1];
+	}
+	else if(classLenghtH[0][1]<10){
+		document.getElementById("endOfClass-1").value= "0"+classLenghtH[0][1]+":"+classLenghtM[0][1];
+	}
+	else if(classLenghtM[0][1]<10){
+		document.getElementById("endOfClass-1").value= classLenghtH[0][1]+":0"+classLenghtM[0][1];
+	}
+	else{
+		document.getElementById("endOfClass-1").value= classLenghtH[0][1]+":"+classLenghtM[0][1];
+	}
+	for(var i=1;i<5;i++){
 	
-	for(var i=0;i<5;i++){
 	if((classLenghtH[i][0]<10)&&(classLenghtM[i][0]<10)){
 		document.getElementById("startOfClass-"+(i+1)).value= "0"+classLenghtH[i][0]+":0"+classLenghtM[i][0];
 	}
@@ -386,11 +404,14 @@ function getStartParametrs(){
 	var days=t.getDay(); 
 	var hours=t.getHours(); 
 	var minutes=t.getMinutes();
+	var seconds=t.getSeconds();
 	var founded = false;
 	days--;
 	if(days==-1){
 		days=6;
 	}
+	
+
 	if((document.getElementById("TimeOFTimerD").innerHTML=="00")&&(document.getElementById("TimeOFTimerH").innerHTML=="00")&&(document.getElementById("TimeOFTimerM").innerHTML=="00")){
 	
 	for(var k= 0;k<6;k++){
@@ -401,7 +422,7 @@ function getStartParametrs(){
 			}
 		for(var i=0;i<5;i++){
 		
-			if(classOfEachDay[dayOfWeek][i]==0){
+			if(classOfEachDay[typeOfWeek][dayOfWeek][i]==0){
 
 				continue;
 			}
@@ -550,15 +571,23 @@ function getStartParametrs(){
 		}
 		
 	}
+	
 
 }
 	
-	setTimeout(getStartParametrs, 1000);	
-}
-
-function showTime(){
-
 	
+		
+		if(seconds>=58	){
+		tempMinutes--;
+		if(tempMinutes==-1){
+			tempMinutes+=59;
+			tempHours--;
+		}
+		if(tempHours==-1){
+			tempHours+=23;
+			tempDay--;
+		}
+		
 		document.getElementById("TimeOFTimerD").innerHTML = "0" + tempDay;
 		if(tempHours>=10){
 							document.getElementById("TimeOFTimerH").innerHTML = tempHours;
@@ -573,20 +602,14 @@ function showTime(){
 		else {
 			document.getElementById("TimeOFTimerM").innerHTML =  "0"+ tempMinutes;
 		}
-		tempMinutes--;
-		if(tempMinutes==-1){
-			tempMinutes+=59;
-			tempHours--;
-		}
-		if(tempHours==-1){
-			tempHours+=23;
-			tempDay--;
-		}
+		
 	
+	}
 
-	
-	setTimeout(showTime, 60000);
-}  
+	setTimeout(getStartParametrs, 1000);	
+}
+
+ 
 function showDistribution(){
 
 	document.getElementById("block-5").style.display = "block";
@@ -602,6 +625,79 @@ function exit(n){
 function showSettings(){
 	document.getElementById("block-1").style.display = "block";
 }
+
+function changeWeek(){
+	for(var i=0;i<7;i++){
+		
+		if(document.getElementById("check-"+(i+1)).checked == false){
+				
+			addDays[tempTypeOfWeek][i] =  addToButtonDaysOfWeek[i];	
+
+		}
+		if(document.getElementById("buttonDay-"+(i+1)).style.display == "none"){
+			checkDisplayBlock[tempTypeOfWeek][i] =0;	
+		}
+		else{
+			checkDisplayBlock[tempTypeOfWeek][i] =1;
+		}
+	
+	}
+	
+	if(tempTypeOfWeek==0){
+		tempTypeOfWeek=1;
+		document.getElementById("buttonTypeOfWeek").innerHTML = "Неділя під рискою";
+	}
+	else{
+		tempTypeOfWeek=0;
+		document.getElementById("buttonTypeOfWeek").innerHTML = "Неділя над рискою";
+	}
+	
+	
+	for(var i=0;i<7;i++){
+		if(checkDisplayBlock[tempTypeOfWeek][i] ==0){
+	
+			document.getElementById("buttonDay-"+(i+1)).style.display = "none";
+			document.getElementById("check-"+(i+1)).style.display = "none";
+		}
+		else{
+			if(addDays[tempTypeOfWeek][i]==0){
+				document.getElementById("buttonDay-"+(i+1)).style.display = "inline-block";
+				document.getElementById("check-"+(i+1)).style.display = "inline-block";
+				document.getElementById("buttonDay-"+(i+1)).style.opacity = 1;
+				document.getElementById("check-"+(i+1)).checked = true;
+				for(var k=0;k<5;k++){
+			
+					if(classOfEachDay[tempTypeOfWeek][i][k]==1){
+						document.getElementById("buttonDay-"+(i+1)).style.opacity=1;
+						document.getElementById("buttonDay-"+(i+1)).disabled = false;
+						document.getElementById("check-"+(i+1)).checked = true;
+						break;
+					}	
+				}
+				
+			}
+			else{
+
+						document.getElementById("buttonDay-"+(i+1)).style.opacity=0.3;
+						document.getElementById("check-"+(i+1)).checked = false;
+			
+				}
+			}
+		}
+		for(var i=0;i<7;i++){
+		
+		if(document.getElementById("buttonDay-"+(i+1)).style.display == "none"){
+			document.getElementById("AddDaysofWeek").style.display = "block";
+			document.getElementById("AddDaysofWeek").innerHTML = "додати " + addToButtonDaysOfWeek[i] +"+";
+			break;
+		}
+		if(i==6){
+			document.getElementById("AddDaysofWeek").style.display =  "none";
+		}
+	
+	}
+}
+
 /*var t=new Date(); 
 var hours=t.getHours(); 
 var minuts=t.getMinutes();
