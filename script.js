@@ -138,8 +138,7 @@ function checkDay(){
 }
 
 function confirmChangesInSchedule(){
-	alert(typeOfWeek);
-	
+		
 	for(var i=0;i<7;i++){
 		if(document.getElementById("check-"+(i+1)).checked){
 			document.getElementById('buttonDay-'+(i+1)).style.display = "inline-block";
@@ -174,9 +173,9 @@ function confirmChangesInSchedule(){
 		document.getElementById("TimeOFTimerD").innerHTML="00";
 		document.getElementById("TimeOFTimerH").innerHTML="00";
 		document.getElementById("TimeOFTimerM").innerHTML="00";
-		alert(classOfEachDay);
+		
 		localStorage.setItem("classOfEachDay", JSON.stringify(classOfEachDay));
-		alert(JSON.parse(localStorage.getItem("classOfEachDay")));
+		
 }
 function dayShedule(n){
 	day = n;
@@ -321,7 +320,7 @@ function confirmChangesInScheduleTime(){
 	
 }
 var tempGetStartParametres = 0;
-//localStorage.startParametres=0;
+localStorage.startParametres=0;
 
 function getStartParametrs(){
 	if(tempGetStartParametres==0){
@@ -492,8 +491,7 @@ function getStartParametrs(){
 						else{
 							tempMinutes = classLenghtM[i][0] - minutes ;
 						}
-						alert(i+ "" +classLenghtH[0][0] + "  " + classLenghtM[0][0] );
-						document.getElementById("TimeOFTimerD").innerHTML = "0" + tempDay;
+												document.getElementById("TimeOFTimerD").innerHTML = "0" + tempDay;
 						document.getElementById("TimeOFTimerH").innerHTML = "0"+ tempHours;
 						if(tempMinutes>=10){
 							document.getElementById("TimeOFTimerM").innerHTML = tempMinutes;
