@@ -28,8 +28,7 @@ var classOfEachDay	 = [
 ];
 var firstMounth = 8;
 var firstDay = 30;
-
-var typeOfWeek = 1;
+var typeOfWeek = 0;
 var tempTypeOfWeek = 0;
 var day = 0;
 var timeOfStartFirstClassH =  9;
@@ -139,13 +138,14 @@ function checkDay(){
 }
 
 function confirmChangesInSchedule(){
-	var amountOfDays = 0;
+	alert(typeOfWeek);
+	
 	for(var i=0;i<7;i++){
 		if(document.getElementById("check-"+(i+1)).checked){
 			document.getElementById('buttonDay-'+(i+1)).style.display = "inline-block";
 			document.getElementById('check-'+(i+1)).style.display = "inline-block";
 			document.getElementById("buttonDay-"+(i+1)).style.opacity=1;
-			amountOfDays++;
+			
 		}
 		else{
 			
@@ -168,27 +168,24 @@ function confirmChangesInSchedule(){
 			break;
 		}
 	}
-	if(amountOfDays<5){
-		for(var i=0;i<7;i++){
-		document.getElementsByClassName('buttonDays')[i].classList.remove('sixDays');
-		document.getElementsByClassName('buttonDays')[i].classList.add('lessThenSixDay');
-	}
-	}
-		tempHours=  0;
+	tempHours=  0;
 		tempMinutes = 0;
 		tempDay = 0;
 		document.getElementById("TimeOFTimerD").innerHTML="00";
 		document.getElementById("TimeOFTimerH").innerHTML="00";
 		document.getElementById("TimeOFTimerM").innerHTML="00";
+		alert(classOfEachDay);
+		localStorage.setItem("classOfEachDay", JSON.stringify(classOfEachDay));
+		alert(JSON.parse(localStorage.getItem("classOfEachDay")));
 }
 function dayShedule(n){
 	day = n;
-	
+
 	document.getElementById("showEveryDay").innerHTML = daysOfWeek[day];
 	document.getElementById("block-3").style.display = "block";
 	document.getElementById("block-2").style.display = "none";
 	for(var i=0;i<5;i++){
-		if(classOfEachDay[typeOfWeek][day][i] == 0){
+		if(classOfEachDay[tempTypeOfWeek][day][i] == 0){
 		
 		document.getElementById("everyDay-"+(i+1)).style.opacity=0.6;
 		document.getElementById("everyDay-"+(i+1)).innerHTML = "+";
@@ -202,14 +199,14 @@ function dayShedule(n){
 	}
 }
 function checkClass(clas){
-	if(classOfEachDay[typeOfWeek][day][clas] == 1){
+	if(classOfEachDay[tempTypeOfWeek][day][clas] == 1){
 		
 		document.getElementById("everyDay-"+(clas+1)).style.opacity=0.6;
 		document.getElementById("everyDay-"+(clas+1)).innerHTML = "+";
-		classOfEachDay[typeOfWeek][day][clas] = 0;
+		classOfEachDay[tempTypeOfWeek][day][clas] = 0;
 	}
 	else {
-		classOfEachDay[typeOfWeek][day][clas] = 1;
+		classOfEachDay[tempTypeOfWeek][day][clas] = 1;
 		document.getElementById("everyDay-"+(clas+1)).style.opacity=1;
 		document.getElementById("everyDay-"+(clas+1)).innerHTML = clas+1 + " пара";
 	}
@@ -228,14 +225,14 @@ function confirmChangesInScheduleTime(){
 	if(document.getElementById("classTimeH").value*1>2){document.getElementById("classTimeH").value=2}
 	else if(document.getElementById("classTimeH").value*1<0){document.getElementById("classTimeH").value=0}
 	
-	if(document.getElementById("classTimeM").value*1>60){document.getElementById("classTimeM").value=60}
+	if(document.getElementById("classTimeM").value*1>59){document.getElementById("classTimeM").value=59}
 	else if((document.getElementById("classTimeM").value*1<10)&&(document.getElementById("classTimeH").value*1==0)){document.getElementById("classTimeM").value=10}
 	else if(document.getElementById("classTimeM").value*1<0){document.getElementById("classTimeM").value=0}
 	
-	if(document.getElementById("breakTime").value*1>60){ document.getElementById("breakTime").value=60;}
+	if(document.getElementById("breakTime").value*1>59){ document.getElementById("breakTime").value=59;}
 	else if(document.getElementById("breakTime").value*1<5){ document.getElementById("breakTime").value=5;}
 	
-	if(document.getElementById("longBreakTime").value*1>60){ document.getElementById("longBreakTime").value=60;}
+	if(document.getElementById("longBreakTime").value*1>59){ document.getElementById("longBreakTime").value=59;}
 	else if(document.getElementById("longBreakTime").value*1<5){ document.getElementById("longBreakTime").value=5;}
 	
 	lengthOfBreak = document.getElementById("breakTime").value*1;
@@ -248,6 +245,12 @@ function confirmChangesInScheduleTime(){
 	document.getElementById("longBreakTime").value = lengthOfLongBreak;
 	document.getElementById("classTimeH").value = lengthOfClassH;
 	document.getElementById("classTimeM").value = lengthOfClassM;
+	localStorage.timeOfStartFirstClassH =  timeOfStartFirstClassH;
+	localStorage.timeOfStartFirstClassM =  timeOfStartFirstClassM;
+	localStorage.lengthOfBreak = lengthOfBreak;
+	localStorage.lengthOfLongBreak = lengthOfLongBreak;
+	localStorage.lengthOfClassH = lengthOfClassH;
+	localStorage.lengthOfClassM = lengthOfClassM;
 	classLenghtH[0][0] = timeOfStartFirstClassH;
 	classLenghtM[0][0] = timeOfStartFirstClassM;
 	classLenghtH[0][1]= classLenghtH[0][0] + lengthOfClassH;
@@ -317,7 +320,54 @@ function confirmChangesInScheduleTime(){
 			document.getElementById("TimeOFTimerM").innerHTML="00";
 	
 }
+var tempGetStartParametres = 0;
+//localStorage.startParametres=0;
+
 function getStartParametrs(){
+	if(tempGetStartParametres==0){
+	if(localStorage.startParametres==0){
+		localStorage.setItem("classOfEachDay", JSON.stringify(classOfEachDay));
+		localStorage.firstMounth = 8;
+		localStorage.firstDay = 30;
+		//localStorage.typeOfWeek = 1;
+		localStorage.day = 0;
+		localStorage.timeOfStartFirstClassH =  9;
+		localStorage.timeOfStartFirstClassM =  0;
+		localStorage.lengthOfBreak = 10;
+		localStorage.lengthOfLongBreak = 40;
+		localStorage.lengthOfClassH = 1;
+		localStorage.lengthOfClassM = 20;
+		localStorage.startParametres=1;
+		
+	}
+	else{
+		classOfEachDay = JSON.parse(localStorage.getItem("classOfEachDay"));
+		firstMounth = localStorage.firstMounth*1;
+		firstDay = localStorage.firstDay*1;
+		
+		//typeOfWeek = localStorage.typeOfWeek*1;
+		
+		
+		day = localStorage.day*1;
+		timeOfStartFirstClassH =  localStorage.timeOfStartFirstClassH*1;
+		timeOfStartFirstClassM =  localStorage.timeOfStartFirstClassM*1;
+		lengthOfBreak = localStorage.lengthOfBreak*1;
+		lengthOfLongBreak = localStorage.lengthOfLongBreak*1;
+		lengthOfClassH = localStorage.lengthOfClassH*2;
+		lengthOfClassM = localStorage.lengthOfClassM*1;
+		
+	}
+	
+	for(var m=0;m<7;m++){
+		for(var n=0;n<5;n++){	
+			if(classOfEachDay[0][m][n]==0){
+				
+			}
+		
+		}
+	}
+	tempGetStartParametres=1;
+	}
 	
 	classLenghtH[0][1]= classLenghtH[0][0] + lengthOfClassH;
 	classLenghtM[0][1] = classLenghtM[0][0] + lengthOfClassM;
