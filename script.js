@@ -320,11 +320,13 @@ function confirmChangesInScheduleTime(){
 	
 }
 var tempGetStartParametres = 0;
-localStorage.startParametres=0;
+//localStorage.startParametres=0;
 
 function getStartParametrs(){
+	
+	
 	if(tempGetStartParametres==0){
-	if(localStorage.startParametres==0){
+	if(localStorage.startParametres!=1){
 		localStorage.setItem("classOfEachDay", JSON.stringify(classOfEachDay));
 		localStorage.firstMounth = 8;
 		localStorage.firstDay = 30;
@@ -352,7 +354,7 @@ function getStartParametrs(){
 		timeOfStartFirstClassM =  localStorage.timeOfStartFirstClassM*1;
 		lengthOfBreak = localStorage.lengthOfBreak*1;
 		lengthOfLongBreak = localStorage.lengthOfLongBreak*1;
-		lengthOfClassH = localStorage.lengthOfClassH*2;
+		lengthOfClassH = localStorage.lengthOfClassH*1;
 		lengthOfClassM = localStorage.lengthOfClassM*1;
 		
 	}
